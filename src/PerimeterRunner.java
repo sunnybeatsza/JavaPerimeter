@@ -24,12 +24,40 @@ public class PerimeterRunner {
         return calculatePerimeter(s)/points.size();
     }
 
+    public Double getLargestSide(Shape s){
+        ArrayList<Point> points = s.getPoints();
+        double largestSide = 0;
+        for (int i = 0; i < points.size(); i++){
+            Point current = points.get(i);
+            Point next = points.get((i + 1) % points.size()); // Wrap around to the first point
+            double distance = current.distance(next);
+            if (distance > largestSide){
+                largestSide = distance;
+            }
+        } return largestSide;
+    }
+
+    public Double getLargestX(Shape s){
+        ArrayList<Point> points = s.getPoints();
+        double largestX = 0;
+        for (Point current : points) {
+            double getCurrentX = current.getX();
+            if (getCurrentX > largestX) {
+                largestX = getCurrentX;
+            }
+        }
+        return largestX;
+    }
+
     public static void main(String[] args) throws IOException {
         FileResource fr = new FileResource("src//example2.txt");
         Shape shape1 = new Shape(fr.points);
         PerimeterRunner perimeter = new PerimeterRunner();
+
         System.out.println(perimeter.calculatePerimeter(shape1));
         System.out.println("There are " + perimeter.getNumPoints(shape1) + " points");
         System.out.println(perimeter.getAverageLength(shape1));
+        System.out.println(perimeter.getLargestSide(shape1));
+        System.out.println(perimeter.getLargestX(shape1));
     }
 }
