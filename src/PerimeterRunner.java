@@ -39,7 +39,7 @@ public class PerimeterRunner {
 
     public Double getLargestX(Shape s){
         ArrayList<Point> points = s.getPoints();
-        double largestX = 0;
+        double largestX = points.get(0).getX();
         for (Point current : points) {
             double getCurrentX = current.getX();
             if (getCurrentX > largestX) {
@@ -47,6 +47,11 @@ public class PerimeterRunner {
             }
         }
         return largestX;
+    }
+
+    public void getLargestPerimeterMultipleFiles(){
+        DirectoryResource directoryResource = new DirectoryResource();
+        directoryResource.getFilePaths(directoryResource.selectMultipleFiles());
     }
 
     public static void main(String[] args) throws IOException {
