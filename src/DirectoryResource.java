@@ -3,7 +3,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class DirectoryResource {
-    public File[] selectMultipleFiles(){
+    // Method to allow the user to select multiple files using JFileChooser
+    public File[] selectMultipleFiles() {
         File[] selectedFiles = null;
         JFileChooser fileChooser = new JFileChooser();
 
@@ -18,14 +19,17 @@ public class DirectoryResource {
         return selectedFiles;
     }
 
-    public ArrayList<String> getFilePaths(File[] selectedFiles){
+    // Method to convert selected files to a list of file paths
+    public ArrayList<String> getFilePaths(File[] selectedFiles) {
         ArrayList<String> filePaths = new ArrayList<>();
-        DirectoryResource directory = new DirectoryResource();
-        File[] files = directory.selectMultipleFiles();
-        for (File file : files){
-            String filepath = file.getAbsolutePath();
-            filePaths.add(filepath);
+
+        if (selectedFiles != null) {
+            for (File file : selectedFiles) {
+                filePaths.add(file.getAbsolutePath());
+            }
         }
+
         return filePaths;
     }
+
 }

@@ -49,9 +49,22 @@ public class PerimeterRunner {
         return largestX;
     }
 
-    public void getLargestPerimeterMultipleFiles(){
+    public Double getLargestPerimeterMultipleFiles() throws IOException {
         DirectoryResource directoryResource = new DirectoryResource();
-        directoryResource.getFilePaths(directoryResource.selectMultipleFiles());
+        ArrayList<String> filePaths = directoryResource.getFilePaths(directoryResource.selectMultipleFiles());
+        ArrayList<Double> perimeters = new ArrayList<>();
+        for (String file: filePaths){
+            FileResource fr = new FileResource(file);
+            Shape shape = new Shape(fr.points);
+            PerimeterRunner perimeter = new PerimeterRunner();
+            perimeters.add(perimeter.calculatePerimeter(shape));
+        }
+        double largestPerimeter = perimeters.get(0);
+        for (Double perimeter : perimeters){
+            if (perimeter > largestPerimeter){
+                largestPerimeter = perimeter;
+            }
+        } return largestPerimeter;
     }
 
     public static void main(String[] args) throws IOException {
@@ -64,5 +77,7 @@ public class PerimeterRunner {
         System.out.println(perimeter.getAverageLength(shape1));
         System.out.println(perimeter.getLargestSide(shape1));
         System.out.println(perimeter.getLargestX(shape1));
+
+        System.out.println(perimeter.getLargestPerimeterMultipleFiles());
     }
 }
